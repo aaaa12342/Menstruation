@@ -1,0 +1,19 @@
+.home-page { padding-top: 24rpx; }
+.hero { position: relative; overflow: hidden; padding: 42rpx 36rpx; border-radius: 36rpx; background: linear-gradient(135deg, #ffe9e8, #fff6ee); }
+.hero-title { margin-top: 10rpx; font-size: 72rpx; letter-spacing: 8rpx; }
+.hero-copy { width: 410rpx; margin-top: 12rpx; color: #806c68; font-size: 28rpx; line-height: 1.6; }
+.hero-actions { display: flex; align-items: center; margin-top: 34rpx; }
+.hero-btn { width: 220rpx; height: 76rpx; margin: 0; border-radius: 38rpx; background: #d96d78; color: #fff; font-size: 26rpx; line-height: 76rpx; }
+.hero-link { margin-left: 24rpx; background: transparent; color: #a7686b; font-size: 26rpx; }
+.hero-orb { position: absolute; border-radius: 50%; opacity: .55; }
+.orb-one { width: 180rpx; height: 180rpx; top: -40rpx; right: -20rpx; background: #f4c5c6; }
+.orb-two { width: 110rpx; height: 110rpx; right: 110rpx; bottom: -45rpx; background: #f7d8b8; }
+.quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20rpx; }
+.quick-card { padding: 24rpx; min-height: 176rpx; }
+.quick-icon { display: flex; align-items: center; justify-content: center; width: 58rpx; height: 58rpx; border-radius: 20rpx; background: rgba(255,255,255,.65); color: #c85e6b; font-size: 28rpx; }
+.quick-name { margin-top: 22rpx; font-size: 30rpx; font-weight: 700; }
+.quick-desc { margin-top: 8rpx; color: #9d918e; font-size: 22rpx; }
+.knowledge-card { background: #fff0f0; }.care-card { background: #fff6e9; }.community-card { background: #f1edff; }.project-card { background: #edf8f0; }
+.stats { display: flex; justify-content: space-around; padding: 28rpx 8rpx; }
+.stat { flex: 1; text-align: center; border-right: 1rpx solid #f1e4e1; }.stat:last-child { border: 0; }.stat-value { color: #c85e6b; font-size: 40rpx; font-weight: 700; }.stat-label { margin-top: 8rpx; color: #9d918e; font-size: 22rpx; }
+.support { display: flex; align-items: center; margin-top: 28rpx; padding: 24rpx; }.support-icon { display: flex; align-items: center; justify-content: center; width: 70rpx; height: 70rpx; border-radius: 24rpx; background: #fff0ef; color: #d96d78; font-size: 40rpx; }.support-main { flex: 1; margin-left: 20rpx; }.support-title { font-size: 28rpx; font-weight: 700; }.support-copy { margin-top: 6rpx; color: #9d918e; font-size: 22rpx; }.support-arrow { color: #d96d78; font-size: 42rpx; }.footer-note { padding: 32rpx 8rpx 8rpx; color: #aaa09d; font-size: 21rpx; text-align: center; }.footer-note text { color: #c26d76; }

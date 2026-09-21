@@ -1,0 +1,6 @@
+<view class="page detail-page">
+  <view class="detail-cover"><view class="eyebrow">{{isRumor ? 'RUMOR BUSTING' : item.category}}</view><view class="detail-title">{{isRumor ? item.title : item.title}}</view><view class="cover-shape"></view></view>
+  <view wx:if="{{isRumor}}" class="truth-box card"><view class="truth-label">科学解释</view><view class="truth-title">{{item.truth}}</view><view class="truth-detail">{{item.detail}}</view></view>
+  <view wx:else class="article card"><view class="article-summary">{{item.summary}}</view><view class="divider"></view><view class="article-content">{{item.content}}</view></view>
+  <view class="safe-note">以上内容用于健康教育和信息参考，不构成医疗建议。如有明显不适，请及时寻求专业帮助。</view>
+</view>

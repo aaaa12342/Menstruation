@@ -1,0 +1,26 @@
+<view class="page home-page">
+  <view class="hero">
+    <view class="eyebrow">青少年经期健康公益信息平台</view>
+    <view class="title hero-title">经心守护</view>
+    <view class="hero-copy">愿每一次成长，都被温柔而科学地看见。</view>
+    <view class="hero-actions">
+      <button class="hero-btn" data-url="/pages/knowledge/knowledge" bindtap="go">先去了解</button>
+      <button class="hero-link" bindtap="showNotice">健康提醒</button>
+    </view>
+    <view class="hero-orb orb-one"></view><view class="hero-orb orb-two"></view>
+  </view>
+
+  <view class="section-title">你现在想了解什么？</view>
+  <view class="quick-grid">
+    <view class="quick-card card knowledge-card" data-url="/pages/knowledge/knowledge" bindtap="go"><view class="quick-icon">知</view><view class="quick-name">经期科普</view><view class="quick-desc">听得懂，用得上</view></view>
+    <view class="quick-card card care-card" data-url="/pages/care/care" bindtap="go"><view class="quick-icon">护</view><view class="quick-name">关怀包</view><view class="quick-desc">申请与分发信息</view></view>
+    <view class="quick-card card community-card" data-url="/pages/community/community" bindtap="go"><view class="quick-icon">伴</view><view class="quick-name">同伴互助</view><view class="quick-desc">匿名问一问</view></view>
+    <view class="quick-card card project-card" data-url="/pages/projects/projects" bindtap="go"><view class="quick-icon">益</view><view class="quick-name">公益项目</view><view class="quick-desc">找到可信行动</view></view>
+  </view>
+
+  <view class="section-title">平台正在做什么 <text class="section-more">透明公开</text></view>
+  <view class="stats card"><block wx:for="{{stats}}" wx:key="label"><view class="stat"><view class="stat-value">{{item.value}}</view><view class="stat-label">{{item.label}}</view></view></block></view>
+
+  <view class="support card" data-url="/pages/hotline/hotline" bindtap="go"><view class="support-icon">☏</view><view class="support-main"><view class="support-title">需要有人听一听？</view><view class="support-copy">了解志愿者热线，给自己一个求助的出口。</view></view><view class="support-arrow">›</view></view>
+  <view class="footer-note">信息仅供健康教育参考，不构成医疗建议 · <text data-url="/pages/privacy/privacy" bindtap="go">隐私与说明</text></view>
+</view>

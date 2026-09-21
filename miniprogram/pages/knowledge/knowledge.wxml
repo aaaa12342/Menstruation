@@ -1,0 +1,8 @@
+<view class="page">
+  <view class="eyebrow">KNOWLEDGE BASE</view><view class="title">经期科普</view><view class="subtitle intro">把重要的健康知识，讲得简单一点。</view>
+  <scroll-view scroll-x class="filter-scroll"><view class="filters"><text class="filter {{active === 'all' ? 'active' : ''}}" data-type="all" bindtap="filter">全部</text><text class="filter {{active === '基础知识' ? 'active' : ''}}" data-type="基础知识" bindtap="filter">基础知识</text><text class="filter {{active === '经期护理' ? 'active' : ''}}" data-type="经期护理" bindtap="filter">经期护理</text><text class="filter {{active === '选购指南' ? 'active' : ''}}" data-type="选购指南" bindtap="filter">选购指南</text></view></scroll-view>
+  <view class="knowledge-list"><block wx:for="{{list}}" wx:key="id"><view wx:if="{{active === 'all' || active === item.category}}" class="knowledge-item card" data-id="{{item.id}}" bindtap="open"><view class="item-top"><text class="tag">{{item.category}}</text><text class="item-arrow">›</text></view><view class="item-title">{{item.title}}</view><view class="item-summary">{{item.summary}}</view></view></block></view>
+  <view class="section-title">辟谣专区 <text class="section-more">先看科学解释</text></view>
+  <view class="rumor-list"><block wx:for="{{rumors}}" wx:key="id"><view class="rumor card" data-id="{{item.id}}" bindtap="openRumor"><view class="rumor-mark">?</view><view class="rumor-main"><view class="rumor-title">{{item.title}}</view><view class="rumor-truth">{{item.truth}}</view></view><text class="item-arrow">›</text></view></block></view>
+  <view class="safe-note">这里提供健康教育信息，不替代医生诊断。如果症状明显或持续加重，请咨询校医或前往正规医院。</view>
+</view>

@@ -1,0 +1,8 @@
+<view class="page">
+  <view class="eyebrow">PEER SUPPORT</view><view class="title">同伴互助</view><view class="subtitle">匿名说一说，也许你的问题正被很多人经历。</view>
+  <view class="community-tip card"><view class="tip-icon">♡</view><view><view class="tip-title">这里是分享，不是诊疗</view><view class="tip-copy">回答只分享知识和经验，不提供诊断或用药建议。</view></view></view>
+  <view class="scope-tabs"><text class="scope-tab {{scope === 'school' ? 'active' : ''}}" data-scope="school" bindtap="switchScope">本校专区</text><text class="scope-tab {{scope === 'all' ? 'active' : ''}}" data-scope="all" bindtap="switchScope">全校广场</text></view>
+  <view class="question-list"><block wx:for="{{list}}" wx:key="id"><view wx:if="{{scope === 'all' || item.scope === '本校专区'}}" class="question card" data-id="{{item.id}}" bindtap="open"><view class="question-meta"><text class="tag">{{item.tag}}</text><text class="muted">{{item.time}}</text></view><view class="question-title">{{item.title}}</view><view class="question-bottom"><text>{{item.answerCount}} 条回答</text><text class="item-arrow">›</text></view></view></block></view>
+  <button class="primary-btn ask-btn" bindtap="ask">匿名提问</button>
+  <view class="danger-note">如果你遇到大量出血、剧烈疼痛、晕倒或持续数月没来月经等情况，请尽快咨询校医或前往正规医院。</view>
+</view>

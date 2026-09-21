@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/knowledge/knowledge",
+    "pages/knowledge-detail/knowledge-detail",
+    "pages/care/care",
+    "pages/care-apply/care-apply",
+    "pages/community/community",
+    "pages/question-detail/question-detail",
+    "pages/projects/projects",
+    "pages/project-detail/project-detail",
+    "pages/hotline/hotline",
+    "pages/privacy/privacy"
+  ],
+  "window": {
+    "navigationBarTitleText": "经心守护",
+    "navigationBarBackgroundColor": "#fffaf8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fffaf8",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#8e7f7b",
+    "selectedColor": "#d96d78",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/knowledge/knowledge", "text": "科普" },
+      { "pagePath": "pages/community/community", "text": "互助" },
+      { "pagePath": "pages/projects/projects", "text": "公益" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

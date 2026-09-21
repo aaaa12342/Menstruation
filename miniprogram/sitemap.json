@@ -1,0 +1,4 @@
+{
+  "desc": "经心守护页面索引",
+  "rules": [{ "action": "allow", "page": "*" }]
+}

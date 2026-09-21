@@ -1,0 +1,1 @@
+.privacy-card { margin-top: 32rpx; padding: 30rpx; }.privacy-title { margin-bottom: 14rpx; color: #c85e6b; font-size: 28rpx; font-weight: 700; }.privacy-title:not(:first-child) { margin-top: 30rpx; }.privacy-text { color: #685b58; font-size: 26rpx; line-height: 1.8; }

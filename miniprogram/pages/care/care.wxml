@@ -1,0 +1,11 @@
+<view class="page">
+  <view class="eyebrow">CARE PACKAGE</view><view class="title">关怀包</view><view class="subtitle">让需要帮助的同学，能够更安心地度过经期。</view>
+  <view class="care-hero"><view class="care-hero-title">一份关怀，刚刚好</view><view class="care-hero-copy">面向有需要的在校学生，提供基础经期用品和健康信息。</view><view class="care-flower">♡</view></view>
+  <view class="section-title">关怀包里有什么？</view>
+  <view class="item-card card"><block wx:for="{{package.items}}" wx:key="*this"><view class="package-item"><view class="check">✓</view><text>{{item}}</text></view></block></view>
+  <view class="section-title">公开分发情况 <text class="section-more">持续更新</text></view>
+  <view class="stats card"><block wx:for="{{package.stats}}" wx:key="label"><view class="stat"><view class="stat-value">{{item.value}}</view><view class="stat-label">{{item.label}}</view></view></block></view>
+  <view class="safe-note">申请信息仅用于本次模拟流程展示。正式项目将坚持隐私最小化，不公开个人信息。</view>
+  <button class="primary-btn care-btn" bindtap="goApply">申请关怀包</button>
+  <button class="secondary-btn care-btn" bindtap="showStatus">查询申请进度</button>
+</view>

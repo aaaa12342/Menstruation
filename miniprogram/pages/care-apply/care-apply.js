@@ -1,0 +1,2 @@
+const service = require('../../services/data-service')
+Page({ data: { form: { school: '', grade: '', note: '' }, submitted: false, application: null }, update(e) { const field = e.currentTarget.dataset.field; this.setData({ [`form.${field}`]: e.detail.value }) }, submit() { const app = service.createApplication(this.data.form); this.setData({ submitted: true, application: app }) }, backHome() { wx.switchTab({ url: '/pages/index/index' }) } })

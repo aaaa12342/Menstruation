@@ -1,0 +1,5 @@
+<view class="page">
+  <view wx:if="{{mode === 'ask' && !submitted}}"><view class="eyebrow">ANONYMOUS QUESTION</view><view class="title">匿名提问</view><view class="subtitle">学校信息只用于分区展示，不会和问题内容关联展示。</view><view class="ask-form card"><view class="form-label">问题内容</view><textarea maxlength="300" placeholder="把你想问的事情写下来吧" bindinput="input"></textarea><view class="form-hint">建议：分享经历和困惑，不要填写姓名、电话等个人信息。</view></view><view class="safe-note">发布前请注意：这里是同伴经验分享，不提供诊断和用药建议。</view><button class="primary-btn" bindtap="submit">发布匿名问题</button></view>
+  <view wx:elif="{{mode === 'ask' && submitted}}" class="success"><view class="success-mark">✓</view><view class="success-title">问题已发布</view><view class="subtitle">你的问题已进入模拟的全校广场。</view><button class="primary-btn" bindtap="back">返回互助社区</button></view>
+  <view wx:else><view class="question-head"><text class="tag">{{item.tag}}</text><view class="detail-question">{{item.title}}</view><view class="muted">{{item.time}} · 匿名发布</view></view><view class="answer card"><view class="answer-label">同伴回答</view><view class="answer-text">{{item.answer}}</view></view><view class="safe-note">以上为同伴经验分享，不构成医疗建议。如有不适，请及时就诊。</view></view>
+</view>
