@@ -1,1 +1,24 @@
-<view class="page"><view class="eyebrow">PRIVACY & SAFETY</view><view class="title">隐私与说明</view><view class="privacy-card card"><view class="privacy-title">我们希望你安心使用</view><view class="privacy-text">当前版本使用本地模拟数据，不会上传你的学校、年级、问题或申请信息。正式项目接入服务时，也应坚持最小化收集原则。</view><view class="privacy-title">健康边界</view><view class="privacy-text">小程序提供健康教育、公益信息和同伴经验分享，不提供诊断、处方或用药建议。遇到剧烈疼痛、大量出血、晕倒等情况，请尽快寻求专业医疗帮助。</view><view class="privacy-title">内容来源</view><view class="privacy-text">公益项目和热线信息应以官方公开渠道为准。本项目不代收款项，不承诺线下服务。</view></view><view class="safe-note">如果你在使用过程中感到不舒服，可以先暂停浏览，联系可信任的成年人、校医或正规医疗机构。</view></view>
+<view class="page">
+  <view class="eyebrow">PRIVACY & SAFETY</view>
+  <view class="title">隐私与使用说明</view>
+  <view class="subtitle">演示版说明 · 更新日期：2026 年 9 月 23 日</view>
+  <view class="privacy-card card">
+    <view class="privacy-title">适用范围</view>
+    <view class="privacy-text">本说明适用于“经心守护”本地演示版。当前没有真实账号、云数据库、后台审核或线上公益服务。请勿提交真实求助申请、真实姓名、联系方式、学校地址或可识别他人的信息。</view>
+    <view class="privacy-title">保存哪些信息，为什么保存</view>
+    <view class="privacy-text">浏览科普和公益信息无需填写资料。使用社区时，本机会保存随机设备标识、你填写的帖子与回复、分类与发布范围、审核状态、时间及未读状态，用于显示“我的帖子”、本机审核演示和回复提醒。你主动填写的健康描述可能属于敏感信息，请避免写入真实病史或身份信息。</view>
+    <view class="privacy-title">保存位置、期限和对外提供</view>
+    <view class="privacy-text">社区内容保存在当前设备的微信小程序本地缓存，不会由本演示版上传到开发团队服务器，也不会因本演示版主动提供给其他用户或第三方。只有同一设备上的演示流程能看到这些内容。内容会保留到你点击下方“删除本机社区数据”、清理微信缓存或卸载小程序为止。关怀包申请仅用于当前页面模拟，退出页面后不保存。</view>
+    <view class="privacy-title">你的选择与删除方式</view>
+    <view class="privacy-text">你可以不使用社区功能；发帖前需主动确认本机保存说明。你可以随时删除本机保存的全部帖子、回复、随机标识和未读状态。删除后不可恢复。</view>
+    <button class="secondary-btn delete-btn" bindtap="clearData">删除本机社区数据</button>
+    <view class="privacy-title">设备能力与第三方</view>
+    <view class="privacy-text">点击“一键拨打热线”时，小程序调用微信拨号界面；只有你确认后才会尝试拨打。当前演示版未接入广告、统计分析、第三方 SDK 或支付。微信平台自身的数据处理以微信的规则为准。</view>
+    <view class="privacy-title">未成年人保护</view>
+    <view class="privacy-text">本项目面向青少年，但演示版没有年龄核验或监护人同意机制，因此不适合收集真实未成年人个人信息。正式开放社区、申请及健康资料处理前，须确定运营主体、提供监护人同意和必要的单独同意流程，并建立服务端审核与投诉处理机制。</view>
+    <view class="privacy-title">健康信息与内容边界</view>
+    <view class="privacy-text">科普内容和同伴回复仅供健康教育，不构成诊断、处方或用药建议。敏感词检查不能识别全部不当内容，本机审核只是流程演示。严重疼痛、大量出血、晕厥或持续异常时，请及时联系可信任的成年人、校医或正规医院。</view>
+    <view class="privacy-title">运营信息与反馈</view>
+    <view class="privacy-text">当前为尚未正式运营的项目演示版，正式运营主体、个人信息保护负责人和私密反馈渠道尚未确定。请勿在公开 GitHub 仓库提交个人健康或身份信息；技术问题可在 aaaa12342/Menstruation 仓库反馈。正式上线前需补齐运营主体、联系方式、投诉渠道和完整隐私政策。</view>
+  </view>
+</view>

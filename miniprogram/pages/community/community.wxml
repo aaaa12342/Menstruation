@@ -1,8 +1,23 @@
 <view class="page">
-  <view class="eyebrow">PEER SUPPORT</view><view class="title">同伴互助</view><view class="subtitle">匿名说一说，也许你的问题正被很多人经历。</view>
-  <view class="community-tip card"><view class="tip-icon">♡</view><view><view class="tip-title">这里是分享，不是诊疗</view><view class="tip-copy">回答只分享知识和经验，不提供诊断或用药建议。</view></view></view>
-  <view class="scope-tabs"><text class="scope-tab {{scope === 'school' ? 'active' : ''}}" data-scope="school" bindtap="switchScope">本校专区</text><text class="scope-tab {{scope === 'all' ? 'active' : ''}}" data-scope="all" bindtap="switchScope">全校广场</text></view>
-  <view class="question-list"><block wx:for="{{list}}" wx:key="id"><view wx:if="{{scope === 'all' || item.scope === '本校专区'}}" class="question card" data-id="{{item.id}}" bindtap="open"><view class="question-meta"><text class="tag">{{item.tag}}</text><text class="muted">{{item.time}}</text></view><view class="question-title">{{item.title}}</view><view class="question-bottom"><text>{{item.answerCount}} 条回答</text><text class="item-arrow">›</text></view></view></block></view>
+  <view class="eyebrow">PEER SUPPORT</view>
+  <view class="title">同伴互助</view>
+  <view class="subtitle">匿名提问与同伴交流。演示内容保存在本机。</view>
+  <view class="community-tip card"><view class="tip-icon">♡</view><view><view class="tip-title">分享经验，不替代诊疗</view><view class="tip-copy">问题和回复需先通过审核演示台，才能公开展示。</view></view></view>
+  <view class="scope-tabs">
+    <text class="scope-tab {{view === 'all' ? 'active' : ''}}" data-view="all" bindtap="switchScope">全校广场</text>
+    <text class="scope-tab {{view === 'school' ? 'active' : ''}}" data-view="school" bindtap="switchScope">本校专区</text>
+    <text class="scope-tab {{view === 'mine' ? 'active' : ''}}" data-view="mine" bindtap="switchScope">我的帖子</text>
+    <text class="scope-tab {{view === 'notices' ? 'active' : ''}}" data-view="notices" bindtap="switchScope">回复消息<text wx:if="{{unread}}" class="notice-dot">{{unread}}</text></text>
+  </view>
+  <view wx:if="{{!list.length}}" class="empty card">{{emptyText}}</view>
+  <view class="question-list">
+    <view wx:for="{{list}}" wx:key="id" class="question card" data-id="{{item.id}}" bindtap="open">
+      <view class="question-meta"><text class="tag">{{item.tag}}</text><text class="muted">{{item.time}}</text></view>
+      <view class="question-title">{{item.title}}</view>
+      <view class="question-bottom"><text wx:if="{{view === 'mine'}}" class="status">{{item.status}} · </text><text>{{item.answerCount}} 条回复</text><text wx:if="{{item.unreadCount}}" class="unread">{{item.unreadCount}} 条新回复</text><text class="item-arrow">›</text></view>
+    </view>
+  </view>
   <button class="primary-btn ask-btn" bindtap="ask">匿名提问</button>
-  <view class="danger-note">如果你遇到大量出血、剧烈疼痛、晕倒或持续数月没来月经等情况，请尽快咨询校医或前往正规医院。</view>
+  <view class="demo-link" bindtap="reviewDemo">进入本机审核与回复演示台 ›</view>
+  <view class="danger-note">若出现大量出血、剧烈疼痛、晕倒等情况，请及时咨询校医或前往正规医院。</view>
 </view>

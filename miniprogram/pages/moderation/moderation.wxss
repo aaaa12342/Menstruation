@@ -1,0 +1,6 @@
+.empty { padding: 32rpx; color: #9d918e; text-align: center; }
+.review-card, .reply-card { margin-bottom: 18rpx; padding: 26rpx; }
+.review-text { margin: 18rpx 0; white-space: pre-wrap; line-height: 1.7; }
+.actions { display: flex; gap: 16rpx; }
+.action { flex: 1; height: 72rpx; }
+.reply-card button { margin-top: 20rpx; height: 72rpx; }

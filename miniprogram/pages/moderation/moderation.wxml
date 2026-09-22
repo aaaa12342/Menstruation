@@ -1,0 +1,21 @@
+<view class="page">
+  <view class="eyebrow">LOCAL DEMO ONLY</view>
+  <view class="title">审核演示台</view>
+  <view class="subtitle">这里只审核本机缓存的演示内容。正式运营需要具备身份验证、服务端审核、申诉与留痕。</view>
+  <view class="section-title">待审核内容</view>
+  <view wx:if="{{!queue.length}}" class="empty card">当前没有待审核内容</view>
+  <view wx:for="{{queue}}" wx:key="id" class="review-card card">
+    <view class="tag">{{item.kind === 'post' ? '问题' : '回复'}}</view>
+    <view class="review-text">{{item.text}}</view>
+    <view class="actions">
+      <button class="secondary-btn action" data-kind="{{item.kind}}" data-post-id="{{item.postId}}" data-id="{{item.id}}" data-pass="no" bindtap="decide">不通过</button>
+      <button class="primary-btn action" data-kind="{{item.kind}}" data-post-id="{{item.postId}}" data-id="{{item.id}}" data-pass="yes" bindtap="decide">通过</button>
+    </view>
+  </view>
+  <view class="section-title">回复通知演示</view>
+  <view class="safe-note">选一个已通过的本机帖子发送演示回复，再到“互助 → 回复消息”查看提醒。</view>
+  <view wx:for="{{mine}}" wx:key="id" class="reply-card card">
+    <text>{{item.title}}</text>
+    <button class="secondary-btn" data-id="{{item.id}}" bindtap="demoReply">发送演示回复</button>
+  </view>
+</view>

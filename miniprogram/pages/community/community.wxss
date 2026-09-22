@@ -1,1 +1,8 @@
 .community-tip { display: flex; align-items: center; margin-top: 30rpx; padding: 22rpx; background: #fff4f1; }.tip-icon { margin-right: 18rpx; color: #d96d78; font-size: 44rpx; }.tip-title { font-size: 27rpx; font-weight: 700; }.tip-copy { margin-top: 6rpx; color: #9d7f7a; font-size: 22rpx; }.scope-tabs { display: flex; margin: 32rpx 0 20rpx; padding: 8rpx; border-radius: 999rpx; background: #f5eeeb; }.scope-tab { flex: 1; padding: 16rpx; border-radius: 999rpx; color: #9d918e; font-size: 26rpx; text-align: center; }.scope-tab.active { background: #fff; color: #c85e6b; box-shadow: 0 4rpx 14rpx rgba(150, 110, 100, .08); }.question { margin-bottom: 18rpx; padding: 24rpx 26rpx; }.question-meta, .question-bottom { display: flex; justify-content: space-between; align-items: center; }.question-title { margin: 18rpx 0; font-size: 29rpx; font-weight: 700; line-height: 1.5; }.question-bottom { color: #9d918e; font-size: 22rpx; }.ask-btn { margin: 30rpx 0 22rpx; }
+.scope-tabs { gap: 2rpx; }
+.scope-tab { position: relative; padding: 16rpx 4rpx; font-size: 22rpx; }
+.notice-dot { margin-left: 4rpx; color: #d96d78; font-weight: 700; }
+.empty { padding: 32rpx; color: #9d918e; text-align: center; }
+.status { color: #c85e6b; }
+.unread { margin-left: auto; color: #c85e6b; }
+.demo-link { margin: 4rpx 0 24rpx; color: #a7686b; font-size: 24rpx; text-align: center; }

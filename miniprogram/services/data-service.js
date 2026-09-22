@@ -1,4 +1,8 @@
 const mock = require('../data/mock-data')
+const extra = require('../data/knowledge-extra')
+const fallbackSource = { name: '世界卫生组织 经期健康', url: 'https://www.who.int/news-room/fact-sheets/detail/menstrual-health' }
+const knowledge = mock.knowledge.map(item => ({ ...item, source: fallbackSource })).concat(extra.knowledge)
+const rumors = mock.rumors.map(item => ({ ...item, source: fallbackSource })).concat(extra.rumors)
 
 function getById(list, id) {
   return list.find(item => item.id === id) || list[0]
@@ -15,8 +19,10 @@ function containsRiskWords(text) {
 
 module.exports = {
   ...mock,
-  getKnowledge(id) { return getById(mock.knowledge, id) },
-  getRumor(id) { return getById(mock.rumors, id) },
+  knowledge,
+  rumors,
+  getKnowledge(id) { return getById(knowledge, id) },
+  getRumor(id) { return getById(rumors, id) },
   getQuestion(id) { return getById(mock.questions, id) },
   getProject(id) { return getById(mock.projects, id) },
   createApplication,

@@ -6,6 +6,7 @@
     "pages/care/care",
     "pages/care-apply/care-apply",
     "pages/community/community",
+    "pages/moderation/moderation",
     "pages/question-detail/question-detail",
     "pages/projects/projects",
     "pages/project-detail/project-detail",

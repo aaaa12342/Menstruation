@@ -1,2 +1,55 @@
-const service = require('../../services/data-service')
-Page({ data: { mode: 'view', item: {}, question: '', submitted: false }, onLoad(options) { if (options.mode === 'ask') this.setData({ mode: 'ask' }); else this.setData({ item: service.getQuestion(options.id) }) }, input(e) { this.setData({ question: e.detail.value }) }, submit() { const text = this.data.question.trim(); if (!text) return wx.showToast({ title: '先写下你的问题', icon: 'none' }); if (service.containsRiskWords(text)) { wx.showModal({ title: '请先关注身体信号', content: '你描述的情况可能需要专业医疗帮助，建议尽快咨询校医或前往正规医院就诊。', showCancel: false }); return } this.setData({ submitted: true }) }, back() { wx.switchTab({ url: '/pages/community/community' }) } })
+const community = require('../../services/community-service')
+Page({
+  data: {
+    mode: 'view', item: {}, title: '', body: '', tag: '其他', scope: '全校广场',
+    replyText: '', agreed: false, submitted: false, replies: [], canReply: false
+  },
+  onLoad(options) {
+    if (options.mode === 'ask') this.setData({ mode: 'ask' })
+    else { this.postId = options.id; this.refresh() }
+  },
+  onShow() { if (this.postId) this.refresh() },
+  refresh() {
+    const item = community.postById(this.postId)
+    if (!item) return
+    const replies = (item.replies || (item.answer ? [{ id: 'example', text: item.answer, status: '已通过' }] : []))
+      .filter(reply => reply.status === '已通过')
+    const canReply = item.status === '已通过' && item.id.indexOf('post-') === 0
+    this.setData({ item, replies, canReply })
+    community.markRead(item.id)
+  },
+  input(e) { this.setData({ [e.currentTarget.dataset.field]: e.detail.value }) },
+  selectTag(e) { this.setData({ tag: e.currentTarget.dataset.value }) },
+  selectScope(e) { this.setData({ scope: e.currentTarget.dataset.value }) },
+  toggleAgreement() { this.setData({ agreed: !this.data.agreed }) },
+  submit() {
+    if (!this.data.agreed) return wx.showToast({ title: '请先阅读并同意本机保存说明', icon: 'none' })
+    const text = this.data.title + ' ' + this.data.body
+    const reason = community.screen(text)
+    if (reason) return wx.showToast({ title: reason, icon: 'none' })
+    if (community.risky(text)) {
+      wx.showModal({
+        title: '请关注身体信号',
+        content: '你描述的情况可能需要专业医疗帮助，请尽快咨询校医或前往正规医院。问题仍可提交审核。',
+        showCancel: false,
+        success: () => this.savePost()
+      })
+    } else this.savePost()
+  },
+  savePost() {
+    const result = community.submitPost(this.data)
+    if (result.error) return wx.showToast({ title: result.error, icon: 'none' })
+    this.setData({ submitted: true })
+  },
+  reply() {
+    const result = community.submitReply(this.postId, this.data.replyText)
+    if (result.error) return wx.showToast({ title: result.error, icon: 'none' })
+    this.setData({ replyText: '' })
+    wx.showModal({ title: '回复已提交', content: '回复将先进入本机审核演示台，通过后才会显示。', showCancel: false })
+  },
+  back() {
+    community.setNextView('mine')
+    wx.switchTab({ url: '/pages/community/community' })
+  },
+  privacy() { wx.navigateTo({ url: '/pages/privacy/privacy' }) }
+})

@@ -1,5 +1,33 @@
 <view class="page">
-  <view wx:if="{{mode === 'ask' && !submitted}}"><view class="eyebrow">ANONYMOUS QUESTION</view><view class="title">匿名提问</view><view class="subtitle">学校信息只用于分区展示，不会和问题内容关联展示。</view><view class="ask-form card"><view class="form-label">问题内容</view><textarea maxlength="300" placeholder="把你想问的事情写下来吧" bindinput="input"></textarea><view class="form-hint">建议：分享经历和困惑，不要填写姓名、电话等个人信息。</view></view><view class="safe-note">发布前请注意：这里是同伴经验分享，不提供诊断和用药建议。</view><button class="primary-btn" bindtap="submit">发布匿名问题</button></view>
-  <view wx:elif="{{mode === 'ask' && submitted}}" class="success"><view class="success-mark">✓</view><view class="success-title">问题已发布</view><view class="subtitle">你的问题已进入模拟的全校广场。</view><button class="primary-btn" bindtap="back">返回互助社区</button></view>
-  <view wx:else><view class="question-head"><text class="tag">{{item.tag}}</text><view class="detail-question">{{item.title}}</view><view class="muted">{{item.time}} · 匿名发布</view></view><view class="answer card"><view class="answer-label">同伴回答</view><view class="answer-text">{{item.answer}}</view></view><view class="safe-note">以上为同伴经验分享，不构成医疗建议。如有不适，请及时就诊。</view></view>
+  <view wx:if="{{mode === 'ask' && !submitted}}">
+    <view class="eyebrow">ANONYMOUS QUESTION</view><view class="title">匿名提问</view>
+    <view class="subtitle">请勿写真实姓名、手机号、住址或可识别他人的信息。</view>
+    <view class="ask-form card">
+      <view class="form-label">标题</view>
+      <input maxlength="60" placeholder="用一句话描述你的疑问" data-field="title" bindinput="input" />
+      <view class="form-label">详细描述</view>
+      <textarea maxlength="300" placeholder="至少 10 个字，说说你想了解什么" data-field="body" bindinput="input"></textarea>
+      <view class="form-label">分类</view>
+      <view class="choices"><text class="choice {{tag === '护理' ? 'selected' : ''}}" data-value="护理" bindtap="selectTag">护理</text><text class="choice {{tag === '选购' ? 'selected' : ''}}" data-value="选购" bindtap="selectTag">选购</text><text class="choice {{tag === '心理' ? 'selected' : ''}}" data-value="心理" bindtap="selectTag">心理</text><text class="choice {{tag === '其他' ? 'selected' : ''}}" data-value="其他" bindtap="selectTag">其他</text></view>
+      <view class="form-label">发布范围</view>
+      <view class="choices"><text class="choice {{scope === '全校广场' ? 'selected' : ''}}" data-value="全校广场" bindtap="selectScope">全校广场</text><text class="choice {{scope === '本校专区' ? 'selected' : ''}}" data-value="本校专区" bindtap="selectScope">本校专区演示</text></view>
+    </view>
+    <view class="safe-note">发帖后先进入本机审核队列，审核通过才会出现在广场；异常症状会提示就医。此版本不连接真实学校。</view>
+    <view class="agreement" bindtap="toggleAgreement"><text>{{agreed ? '☑' : '□'}}</text> 我已阅读本机保存说明，同意将本帖保存在当前设备</view>
+    <view class="privacy-link" bindtap="privacy">查看隐私与使用说明 ›</view>
+    <button class="primary-btn" bindtap="submit">提交审核</button>
+  </view>
+  <view wx:elif="{{mode === 'ask' && submitted}}" class="success">
+    <view class="success-mark">✓</view><view class="success-title">已提交审核</view>
+    <view class="subtitle">帖子已保存在本机，在“我的帖子”中可查看状态。通过审核后才会出现在广场。</view>
+    <button class="primary-btn" bindtap="back">查看我的帖子</button>
+  </view>
+  <view wx:else>
+    <view class="question-head"><text class="tag">{{item.tag}}</text><view class="detail-question">{{item.title}}</view><view class="muted">{{item.time}} · 匿名发布</view><view wx:if="{{item.status && item.status !== '已通过'}}" class="status-note">审核状态：{{item.status}}</view><view wx:if="{{item.body}}" class="detail-body">{{item.body}}</view></view>
+    <view class="section-title">同伴回复</view>
+    <view wx:if="{{!replies.length}}" class="answer card">还没有通过审核的回复</view>
+    <view wx:for="{{replies}}" wx:key="id" class="answer card"><view class="answer-label">匿名同伴 · {{item.time}}</view><view class="answer-text">{{item.text}}</view></view>
+    <view wx:if="{{canReply}}" class="reply-form card"><view class="form-label">写一条回复</view><textarea maxlength="300" value="{{replyText}}" placeholder="只分享知识和经验，不给出诊断或用药建议" data-field="replyText" bindinput="input"></textarea><button class="secondary-btn" bindtap="reply">提交回复审核</button></view>
+    <view class="safe-note">以上为同伴经验分享，不构成医疗建议。如有不适，请及时就诊。</view>
+  </view>
 </view>
