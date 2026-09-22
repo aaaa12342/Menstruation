@@ -20,8 +20,9 @@ button::after { border: none; }
 .card { background: #fff; border: 1rpx solid #f3e7e4; border-radius: 28rpx; box-shadow: 0 12rpx 28rpx rgba(183, 125, 117, .08); }
 .muted { color: #9d918e; }
 .tag { display: inline-block; padding: 8rpx 16rpx; border-radius: 999rpx; background: #fff0f0; color: #c85e6b; font-size: 22rpx; }
-.primary-btn { height: 88rpx; border-radius: 44rpx; background: #d96d78; color: #fff; font-size: 30rpx; line-height: 88rpx; }
-.secondary-btn { height: 80rpx; border-radius: 40rpx; background: #fff0ef; color: #c85e6b; font-size: 28rpx; line-height: 80rpx; }
+.primary-btn, .secondary-btn { display: flex; align-items: center; justify-content: center; padding: 0; border: 0; }
+.primary-btn { height: 88rpx; border-radius: 44rpx; background: #d96d78; color: #fff; font-size: 30rpx; line-height: 1; }
+.secondary-btn { height: 80rpx; border-radius: 40rpx; background: #fff0ef; color: #c85e6b; font-size: 28rpx; line-height: 1; }
 .divider { height: 1rpx; margin: 24rpx 0; background: #f3e7e4; }
 .safe-note { padding: 24rpx; background: #fff8e9; border-radius: 20rpx; color: #8d6d32; font-size: 24rpx; line-height: 1.7; }
 .danger-note { padding: 24rpx; background: #fff0ee; border-radius: 20rpx; color: #ad4b52; font-size: 24rpx; line-height: 1.7; }
