@@ -6,7 +6,10 @@ Page({
   ask() {
     wx.navigateTo({
       url: '/pages/question-detail/question-detail?mode=ask',
-      fail: () => wx.showToast({ title: '页面暂时无法打开', icon: 'none' })
+      fail: () => wx.redirectTo({
+        url: '/pages/question-detail/question-detail?mode=ask',
+        fail: () => wx.showToast({ title: '页面暂时无法打开', icon: 'none' })
+      })
     })
   }
 })
