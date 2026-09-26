@@ -25,5 +25,6 @@ Page({
   },
   open(e) { wx.navigateTo({ url: '/pages/question-detail/question-detail?id=' + e.currentTarget.dataset.id }) },
   ask() { wx.navigateTo({ url: '/pages/question-detail/question-detail?mode=ask' }) },
+  reportHistory() { wx.navigateTo({ url: '/pages/report-history/report-history' }) },
   reviewDemo() { wx.navigateTo({ url: '/pages/moderation/moderation' }) }
 })

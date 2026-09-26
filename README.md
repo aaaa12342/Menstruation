@@ -7,6 +7,7 @@
 - 已实现：首页导航、科普与辟谣、关怀包模拟申请、匿名互助、公益项目、热线和隐私说明页面。
 - 互助演示流程：匿名提问后在“我的帖子”查看待审核状态；审核通过后显示于广场；回复通过后在“回复消息”中提示；帖子和回复支持举报，处理后可在本机隐藏。操作见 [互助社区演示说明](docs/community-demo.md)。
 - 科普内容：16 篇知识文章、10 篇辟谣内容；发帖/回复设有基础敏感词与个人信息检查，回复还会拦截部分诊断、用药建议。
+- 体验优化：科普支持关键词搜索和本机收藏；社区可查看举报状态，并可单独删除自己的帖子。
 - 已有 Node.js 自动化检查；尚未完成微信开发者工具内的模拟器/真机验收。
 
 本版使用本机缓存和模拟数据，`project.config.json` 配置为 `touristappid`。审核台没有管理员身份验证，帖子和消息不会跨设备同步；隐私说明只覆盖当前演示方式，不能作为正式上线的完整合规文件。
@@ -22,6 +23,7 @@ node tests/community-flow.test.js
 node tests/report-flow.test.js
 node tests/reply-screen.test.js
 node tests/page-wiring.test.js
+node tests/ux-improvements.test.js
 ```
 
 详细进度与待办见 [progress.md](progress.md) 和 [task_plan.md](task_plan.md)。

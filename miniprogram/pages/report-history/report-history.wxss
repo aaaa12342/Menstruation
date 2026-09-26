@@ -1,0 +1,9 @@
+.empty { margin-top: 30rpx; padding: 34rpx; color: #8e7f7b; text-align: center; }
+.report-card { margin-top: 20rpx; padding: 26rpx; }
+.report-head { display: flex; align-items: center; justify-content: space-between; }
+.report-status { color: #6f8d70; font-size: 24rpx; font-weight: 700; }
+.report-status.pending { color: #c58b3b; }
+.report-reason { margin-top: 20rpx; font-weight: 700; }
+.report-snippet { margin-top: 12rpx; color: #6f625f; line-height: 1.65; }
+.report-time { margin-top: 14rpx; font-size: 22rpx; }
+.safe-note { margin-top: 28rpx; }

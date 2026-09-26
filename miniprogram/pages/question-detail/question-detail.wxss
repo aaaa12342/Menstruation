@@ -14,3 +14,5 @@
 .reply-form button { margin-top: 16rpx; }
 .meta-row { display: flex; align-items: center; justify-content: space-between; gap: 18rpx; }
 .report-link { flex: none; color: #9b7771; font-size: 23rpx; text-decoration: underline; }
+.delete-post-btn { margin-top: 24rpx; border: 0; background: transparent; color: #ad4b52; font-size: 24rpx; text-decoration: underline; }
+.delete-post-btn::after { border: 0; }

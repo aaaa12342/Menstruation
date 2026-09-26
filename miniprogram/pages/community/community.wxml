@@ -18,6 +18,7 @@
     </view>
   </view>
   <button class="primary-btn ask-btn" bindtap="ask">匿名提问</button>
+  <view class="demo-link" bindtap="reportHistory">查看我的举报记录 ›</view>
   <view class="demo-link" bindtap="reviewDemo">进入本机审核与回复演示台 ›</view>
   <view class="danger-note">若出现大量出血、剧烈疼痛、晕倒等情况，请及时咨询校医或前往正规医院。</view>
 </view>

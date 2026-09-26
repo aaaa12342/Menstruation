@@ -1,0 +1,13 @@
+<view class="page">
+  <view class="eyebrow">MY REPORTS</view>
+  <view class="title">我的举报记录</view>
+  <view class="subtitle">仅显示当前设备提交的演示举报和本机处理状态。</view>
+  <view wx:if="{{!list.length}}" class="empty card">你还没有提交举报</view>
+  <view wx:for="{{list}}" wx:key="id" class="report-card card">
+    <view class="report-head"><text class="tag">{{item.targetLabel}}</text><text class="report-status {{item.status === '待处理' ? 'pending' : ''}}">{{item.status}}</text></view>
+    <view class="report-reason">举报原因：{{item.reason}}</view>
+    <view class="report-snippet">{{item.snippet}}</view>
+    <view class="muted report-time">{{item.time}}</view>
+  </view>
+  <view class="safe-note">此页面只是本机流程演示。正式服务还需提供申诉渠道、处理时限和具备权限的审核人员。</view>
+</view>

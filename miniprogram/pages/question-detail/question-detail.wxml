@@ -29,5 +29,6 @@
     <view wx:for="{{replies}}" wx:for-item="reply" wx:key="id" class="answer card"><view class="meta-row"><view class="answer-label">匿名同伴 · {{reply.time || item.time}}</view><text class="report-link" data-kind="reply" data-id="{{reply.id}}" data-post-id="{{item.id}}" data-snippet="{{reply.text}}" bindtap="report">举报回复</text></view><view class="answer-text">{{reply.text}}</view></view>
     <view wx:if="{{canReply}}" class="reply-form card"><view class="form-label">写一条回复</view><textarea maxlength="300" value="{{replyText}}" placeholder="只分享知识和经验，不给出诊断或用药建议" data-field="replyText" bindinput="input"></textarea><button class="secondary-btn" bindtap="reply">提交回复审核</button></view>
     <view class="safe-note">以上为同伴经验分享，不构成医疗建议。如有不适，请及时就诊。</view>
+    <button wx:if="{{canDelete}}" class="delete-post-btn" bindtap="deleteOwnPost">删除我的帖子</button>
   </view>
 </view>

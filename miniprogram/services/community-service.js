@@ -143,6 +143,35 @@ function submitReport(target) {
   return write(state) ? { report } : { error: '本机保存失败，请检查缓存空间' }
 }
 
+function myReports() {
+  const state = read()
+  if (!state.visitorId) return []
+  return state.reports
+    .filter(report => report.reporterId === state.visitorId)
+    .map(report => ({
+      ...report,
+      targetLabel: report.targetKind === 'post' ? '帖子' : '回复'
+    }))
+}
+
+function isMine(postId) {
+  const state = read()
+  const post = state.posts.find(item => item.id === postId)
+  return Boolean(post && state.visitorId && post.authorId === state.visitorId)
+}
+
+function deletePost(postId) {
+  const state = read()
+  const index = state.posts.findIndex(item => item.id === postId)
+  if (index < 0 || !state.visitorId || state.posts[index].authorId !== state.visitorId) return false
+  const post = state.posts[index]
+  const removed = new Set(['post:' + post.id].concat(post.replies.map(reply => 'reply:' + reply.id)))
+  state.posts.splice(index, 1)
+  state.reports = state.reports.filter(report => report.postId !== postId)
+  state.hiddenTargets = state.hiddenTargets.filter(key => !removed.has(key))
+  return write(state)
+}
+
 function queue() {
   const result = []
   const state = read()
@@ -222,6 +251,6 @@ function clearData() {
 
 module.exports = {
   posts, postById, submitPost, submitReply, queue, review, demoReply, markRead, unreadCount,
-  submitReport, reportReasons: REPORT_REASONS,
+  submitReport, myReports, isMine, deletePost, reportReasons: REPORT_REASONS,
   screen, risky, setNextView, takeNextView, clearData
 }

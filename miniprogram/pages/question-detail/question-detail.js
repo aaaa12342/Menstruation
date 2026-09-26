@@ -2,7 +2,7 @@ const community = require('../../services/community-service')
 Page({
   data: {
     mode: 'view', item: {}, title: '', body: '', tag: '其他', scope: '全校广场',
-    replyText: '', agreed: false, submitted: false, replies: [], canReply: false
+    replyText: '', agreed: false, submitted: false, replies: [], canReply: false, canDelete: false
   },
   onLoad(options) {
     if (options.mode === 'ask') this.setData({ mode: 'ask' })
@@ -15,7 +15,7 @@ Page({
     const replies = (item.replies || (item.answer ? [{ id: 'example', text: item.answer, status: '已通过' }] : []))
       .filter(reply => reply.status === '已通过')
     const canReply = item.status === '已通过' && item.id.indexOf('post-') === 0
-    this.setData({ item, replies, canReply })
+    this.setData({ item, replies, canReply, canDelete: community.isMine(item.id) })
     community.markRead(item.id)
   },
   input(e) { this.setData({ [e.currentTarget.dataset.field]: e.detail.value }) },
@@ -56,6 +56,21 @@ Page({
           kind, id, postId, snippet, reason: community.reportReasons[result.tapIndex]
         })
         wx.showToast({ title: submitted.error || '举报已提交审核', icon: 'none' })
+      }
+    })
+  },
+  deleteOwnPost() {
+    wx.showModal({
+      title: '删除这条帖子？',
+      content: '帖子、回复和关联举报记录会从当前设备删除，删除后无法恢复。',
+      success: result => {
+        if (!result.confirm) return
+        const deleted = community.deletePost(this.postId)
+        wx.showToast({ title: deleted ? '帖子已删除' : '删除失败', icon: 'none' })
+        if (deleted) {
+          community.setNextView('mine')
+          wx.switchTab({ url: '/pages/community/community' })
+        }
       }
     })
   },
