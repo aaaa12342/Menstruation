@@ -5,11 +5,11 @@
   <view class="section-title">待审核内容</view>
   <view wx:if="{{!queue.length}}" class="empty card">当前没有待审核内容</view>
   <view wx:for="{{queue}}" wx:key="id" class="review-card card">
-    <view class="tag">{{item.kind === 'post' ? '问题' : '回复'}}</view>
+    <view class="tag">{{item.kind === 'post' ? '问题' : (item.kind === 'reply' ? '回复' : '举报')}}</view>
     <view class="review-text">{{item.text}}</view>
     <view class="actions">
-      <button class="secondary-btn action" data-kind="{{item.kind}}" data-post-id="{{item.postId}}" data-id="{{item.id}}" data-pass="no" bindtap="decide">不通过</button>
-      <button class="primary-btn action" data-kind="{{item.kind}}" data-post-id="{{item.postId}}" data-id="{{item.id}}" data-pass="yes" bindtap="decide">通过</button>
+      <button class="secondary-btn action" data-kind="{{item.kind}}" data-post-id="{{item.postId}}" data-id="{{item.id}}" data-pass="no" bindtap="decide">{{item.kind === 'report' ? '不成立' : '不通过'}}</button>
+      <button class="primary-btn action" data-kind="{{item.kind}}" data-post-id="{{item.postId}}" data-id="{{item.id}}" data-pass="yes" bindtap="decide">{{item.kind === 'report' ? '处理并隐藏' : '通过'}}</button>
     </view>
   </view>
   <view class="section-title">回复通知演示</view>

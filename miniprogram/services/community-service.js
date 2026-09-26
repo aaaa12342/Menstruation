@@ -4,13 +4,19 @@ const KEY = 'jx_community_v1'
 const VIEW_KEY = 'jx_community_view'
 const RISK_WORDS = ['大量出血', '剧烈疼痛', '持续数月没来', '晕倒', '止不住血']
 const BLOCKED_WORDS = ['加微信', '微信号', '加我微信', '私下交易', '代购', '辱骂', '自杀方法']
+const REPORT_REASONS = ['隐私泄露', '不当医疗建议', '辱骂骚扰', '广告交易', '其他']
 
 function read() {
   try {
     const value = wx.getStorageSync(KEY)
-    if (value && typeof value === 'object' && Array.isArray(value.posts)) return value
+    if (value && typeof value === 'object' && Array.isArray(value.posts)) {
+      if (!Array.isArray(value.reports)) value.reports = []
+      if (!Array.isArray(value.hiddenTargets)) value.hiddenTargets = []
+      value.posts.forEach(post => { if (!Array.isArray(post.replies)) post.replies = [] })
+      return value
+    }
   } catch (error) {}
-  return { visitorId: '', posts: [] }
+  return { visitorId: '', posts: [], reports: [], hiddenTargets: [] }
 }
 
 function write(value) {
@@ -47,21 +53,38 @@ function risky(text) {
   return RISK_WORDS.some(word => String(text || '').includes(word))
 }
 
+function hidden(state, kind, id) {
+  return state.hiddenTargets.includes(kind + ':' + id)
+}
+
+function visiblePost(post, state) {
+  return {
+    ...post,
+    replies: (post.replies || []).filter(reply => !hidden(state, 'reply', reply.id))
+  }
+}
+
 function posts(view) {
   const state = read()
-  const mine = state.posts.filter(post => post.authorId === state.visitorId)
+  const mine = state.posts
+    .filter(post => post.authorId === state.visitorId && !hidden(state, 'post', post.id))
+    .map(post => visiblePost(post, state))
   if (view === 'mine') return mine
   if (view === 'notices') return mine.filter(post => post.replies.some(reply => reply.status === '已通过' && reply.unread))
   const seeds = examples.map(item => ({
     ...item, status: '已通过', body: '', replies: [{ id: item.id + '-reply', text: item.answer, status: '已通过' }]
-  }))
-  return state.posts.filter(post => post.status === '已通过').concat(seeds)
+  })).filter(post => !hidden(state, 'post', post.id)).map(post => visiblePost(post, state))
+  return state.posts
+    .filter(post => post.status === '已通过' && !hidden(state, 'post', post.id))
+    .map(post => visiblePost(post, state)).concat(seeds)
     .filter(post => view !== 'school' || post.scope === '本校专区')
 }
 
 function postById(id) {
   const state = read()
-  return state.posts.find(post => post.id === id) || posts('all').find(post => post.id === id) || null
+  const local = state.posts.find(post => post.id === id)
+  if (local) return hidden(state, 'post', id) ? null : visiblePost(local, state)
+  return posts('all').find(post => post.id === id) || null
 }
 
 function submitPost(form) {
@@ -94,19 +117,65 @@ function submitReply(postId, text) {
   return write(state) ? { ok: true } : { error: '本机保存失败，请检查缓存空间' }
 }
 
+function submitReport(target) {
+  const kind = target.kind
+  const id = String(target.id || '')
+  const postId = String(target.postId || '')
+  const reason = String(target.reason || '')
+  if (!['post', 'reply'].includes(kind) || !id || !REPORT_REASONS.includes(reason)) {
+    return { error: '请选择有效的举报原因' }
+  }
+  const post = postById(postId)
+  const exists = post && (kind === 'post' ? post.id === id : post.replies.some(reply => reply.id === id))
+  if (!exists) return { error: '内容不存在或已被处理' }
+  const state = read()
+  const reporterId = ensureVisitor(state)
+  const duplicate = state.reports.some(report =>
+    report.reporterId === reporterId && report.targetKind === kind && report.targetId === id
+  )
+  if (duplicate) return { error: '你已举报过这条内容' }
+  const report = {
+    id: uid('report'), targetKind: kind, targetId: id, postId, reason,
+    snippet: String(target.snippet || '').trim().slice(0, 120), reporterId,
+    status: '待处理', time: new Date().toLocaleString(), createdAt: Date.now()
+  }
+  state.reports.unshift(report)
+  return write(state) ? { report } : { error: '本机保存失败，请检查缓存空间' }
+}
+
 function queue() {
   const result = []
-  read().posts.forEach(post => {
+  const state = read()
+  state.posts.forEach(post => {
     if (post.status === '待审核') result.push({ id: post.id, postId: post.id, kind: 'post', text: post.title + '\n' + post.body })
     post.replies.forEach(reply => {
       if (reply.status === '待审核') result.push({ id: reply.id, postId: post.id, kind: 'reply', text: reply.text })
     })
+  })
+  state.reports.forEach(report => {
+    if (report.status === '待处理') {
+      result.push({
+        id: report.id, postId: report.postId, kind: 'report',
+        text: '举报原因：' + report.reason + '\n内容摘要：' + report.snippet,
+        targetKind: report.targetKind, targetId: report.targetId
+      })
+    }
   })
   return result
 }
 
 function review(kind, postId, id, pass) {
   const state = read()
+  if (kind === 'report') {
+    const report = state.reports.find(item => item.id === id)
+    if (!report || report.status !== '待处理') return false
+    report.status = pass ? '已处理' : '不成立'
+    if (pass) {
+      const key = report.targetKind + ':' + report.targetId
+      if (!state.hiddenTargets.includes(key)) state.hiddenTargets.push(key)
+    }
+    return write(state)
+  }
   const post = state.posts.find(item => item.id === postId)
   if (!post) return false
   const item = kind === 'post' ? post : post.replies.find(reply => reply.id === id)
@@ -153,5 +222,6 @@ function clearData() {
 
 module.exports = {
   posts, postById, submitPost, submitReply, queue, review, demoReply, markRead, unreadCount,
+  submitReport, reportReasons: REPORT_REASONS,
   screen, risky, setNextView, takeNextView, clearData
 }

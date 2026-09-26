@@ -47,6 +47,18 @@ Page({
     this.setData({ replyText: '' })
     wx.showModal({ title: '回复已提交', content: '回复将先进入本机审核演示台，通过后才会显示。', showCancel: false })
   },
+  report(e) {
+    const { kind, id, postId, snippet } = e.currentTarget.dataset
+    wx.showActionSheet({
+      itemList: community.reportReasons,
+      success: result => {
+        const submitted = community.submitReport({
+          kind, id, postId, snippet, reason: community.reportReasons[result.tapIndex]
+        })
+        wx.showToast({ title: submitted.error || '举报已提交审核', icon: 'none' })
+      }
+    })
+  },
   back() {
     community.setNextView('mine')
     wx.switchTab({ url: '/pages/community/community' })
